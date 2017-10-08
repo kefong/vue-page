@@ -19,6 +19,7 @@
 			</ul>
 		</div>
 	</div>
+	<div class="clearfix"></div>
 </template>
 <script>
 export default {
@@ -116,6 +117,9 @@ export default {
 }
 </script>
 <style>
+.clearfix {
+	clear: both;
+}
 .page-view {
 	line-height: 1.2em;
 	font-size: 1em;
