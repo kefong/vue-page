@@ -9,6 +9,7 @@
 		</div>
 		<div class="page-view-right">
 			<ul>
+				<li v-on:click="refresh"><a>刷新</a></li>
 				<li><router-link :to="{ name: route_name, params: { page: 1 }}">First</router-link></li>
 				<li><router-link :to="{ name: route_name, params: { page: prev }}">Prev</router-link></li>
 				<li v-for="item in groupList" :class="{'active': current == item.val}">
@@ -62,6 +63,9 @@ export default {
 			this.current = parseInt(this.$route.params.page);
 			this.route_name = this.$route.name;
 			//console.log(this.route_name);
+		},
+		refresh: function(){
+			console.log('refresh');
 		}
 	},
 	computed: {
@@ -129,6 +133,8 @@ export default {
 .page-view ul, .page-view ul li, .page-view ul li a {
 	float: left;
 	display: block;
+	margin: 0;
+	padding: 0;
 }
 .page-view ul li a, .page-view .page-view-left ul li {
 	padding: 0.3em 0.5em 0.3em 0.5em;
@@ -138,6 +144,9 @@ export default {
 	color: #333;
 	text-decoration: none;
 	border: 1px solid #ccc;
+}
+.page-view ul li a {
+	cursor: pointer;
 }
 .page-view ul li a:hover {
 	background-color: #3BB4F2;
