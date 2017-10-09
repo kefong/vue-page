@@ -8,7 +8,7 @@ Page.install = function(Vue, options){
 	//注入
 	Vue.mixin({
 		watch: {
-			'$route' (to, from){
+			'$route':function(to, from){
 				if(typeof(this.fill) === 'function'){
 					this.fill();
 				}
