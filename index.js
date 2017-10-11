@@ -9,6 +9,11 @@ Page.install = function(Vue, options){
 	Vue.mixin({
 		watch: {
 			'$route':function(to, from){
+				this.refresh();
+			}
+		},
+		methods: {
+			refresh: function(){
 				if(typeof(this.fill) === 'function'){
 					this.fill();
 				}

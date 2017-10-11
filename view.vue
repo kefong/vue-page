@@ -10,13 +10,13 @@
 		<div class="page-view-right">
 			<ul>
 				<li v-on:click="refresh"><a>刷新</a></li>
-				<li><router-link :to="{ name: route_name, params: { page: 1 }}">First</router-link></li>
-				<li><router-link :to="{ name: route_name, params: { page: prev }}">Prev</router-link></li>
+				<li><router-link :to="{ name: route.name, params: { page: 1 }, query: route.query}">First</router-link></li>
+				<li><router-link :to="{ name: route.name, params: { page: prev }, query: route.query}">Prev</router-link></li>
 				<li v-for="item in groupList" :class="{'active': current == item.val}">
-					<router-link :to="{ name: route_name, params: { page: item.val }}">{{ item.text }}</router-link>
+					<router-link :to="{ name: route.name, params: { page: item.val }, query: route.query}">{{ item.text }}</router-link>
 				</li>
-				<li><router-link :to="{ name: route_name, params: { page: next }}">Next</router-link></li>
-				<li><router-link :to="{ name: route_name, params: { page: lastPage }}">Last</router-link></li>
+				<li><router-link :to="{ name: route.name, params: { page: next }, query: route.query}">Next</router-link></li>
+				<li><router-link :to="{ name: route.name, params: { page: lastPage }, query: route.query}">Last</router-link></li>
 			</ul>
 		</div>
 	</div>
@@ -27,7 +27,11 @@ export default {
 	data: function(){
 		return {
 			current: this.current_page,
-			route_name: this.$route.name
+			route: {
+				name: null,
+				params: null,
+				query: null
+			}
 		}
 	},
 	props: {
@@ -61,11 +65,10 @@ export default {
 	methods: {
 		updateRoute: function(){
 			this.current = parseInt(this.$route.params.page);
-			this.route_name = this.$route.name;
-			//console.log(this.route_name);
-		},
-		refresh: function(){
-			console.log('refresh');
+			this.route.params = this.$route.params;
+			this.route.name = this.$route.name;
+			this.route.query = this.$route.query;
+			//console.log(this.$route);
 		}
 	},
 	computed: {
@@ -113,7 +116,7 @@ export default {
 		this.updateRoute();
 	},
 	watch: {
-		'$route' (to, from){
+		'$route': function(to, from){
 			this.updateRoute();
 		}
 	}
